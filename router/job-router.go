@@ -64,6 +64,22 @@ func GetAllJob(context *fiber.Ctx) error {
 
 }
 
+func GetJobByCompanyId(context *fiber.Ctx) error {
+	jobModel := &[]models.JobEntity{}
+	companyId := context.Params("id")
+
+	err := storages.Repo.DB.Preload("Catalogs").Where("company_id = ?", companyId).Find(&jobModel).Error
+
+	if err != nil {
+		context.Status(http.StatusBadRequest).JSON(&fiber.Map{"message": "Request failed"})
+		return err
+	}
+
+	context.Status(http.StatusOK).JSON(&fiber.Map{"data": jobModel})
+
+	return nil
+}
+
 func SearchJob(context *fiber.Ctx) error {
 	jobModel := &[]models.JobEntity{}
 	search := strings.ToLower(context.Query("keyword"))
