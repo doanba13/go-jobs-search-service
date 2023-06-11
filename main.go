@@ -20,9 +20,15 @@ func SetupRoutes(app *fiber.App) {
 	api.Post("/job", router.CreateJob)
 	api.Get("/job", router.GetAllJob)
 	api.Get("/job/:id", router.DetailJob)
+	api.Get("/search-job", router.SearchJob)
+	api.Get("/recently-job", router.GetRecentlyJob)
+	api.Get("/high-salary-job", router.GetHighSalaryJob)
+	api.Get("/hot-job", router.GetJobByView)
+	// api.Get("/job/location/:id", router.G)
 
 	api.Get("/company", router.GetAllCompany)
 	api.Get("/location", router.GetAllLocation)
+
 	api.Get("/catalog/:id", router.GetAllCatalogJob)
 	api.Get("/catalog", router.GetAllCatalog)
 
